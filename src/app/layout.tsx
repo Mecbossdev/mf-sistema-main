@@ -1,15 +1,17 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { 
-  Inter,
+  DM_Sans,
   Bai_Jamjuree as BaiJamjuree,
  } from 'next/font/google'
 import { Session } from 'next-auth'
+import { DefaultProvider } from '@/components/default-provider'
+import HeaderDefault from '@/components/header-default'
 
- const inter = Inter({ 
+ const dm_sans = DM_Sans({ 
     subsets: ['latin'],
-    weight: '800',
-    variable: '--font-inter' })
+    weight: '500',
+    variable: '--font-dm-sans' })
  const baiJamjuree = BaiJamjuree({
     subsets: ['latin'],
     weight: '700',
@@ -29,13 +31,11 @@ interface propsApp {
 export default function RootLayout({children, session}: propsApp) {
 
   return (
-    <html lang="en">
-      <body 
-        className={`${inter.variable} ${baiJamjuree}`}
-      >
-        <div>
+    <html lang="pt-Br"className={dm_sans.variable}>
+      <body>
+        <DefaultProvider>
           {children}    
-        </div>      
+        </DefaultProvider>
       </body>
     </html>
   )

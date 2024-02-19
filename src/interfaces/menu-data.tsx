@@ -25,3 +25,49 @@ export const Menu = [
     ]
   }
 ]
+
+export const FakeData = [
+
+  {
+    id: 1,
+    data: "09/02/2024",
+    processo: "222220001444",
+    recebida: "e-mail",
+    tipoDeJust: "Criminal",
+    tipoDeMulta: "Diaria",
+    valorDaMulta: "R$ 200,00",
+    prazoFatal: "24h"
+  },
+  {
+    id: 2,
+    data: "20/02/2024",
+    processo: "222220001444",
+    recebida: "e-mail",
+    tipoDeJust: "Criminal",
+    tipoDeMulta: "Diaria",
+    valorDaMulta: "R$ 200,00",
+    prazoFatal: "24h"
+  },
+  {
+    id: 3,
+    data: "15/02/2024",
+    processo: "222220001444",
+    recebida: "e-mail",
+    tipoDeJust: "Trabalhista",
+    tipoDeMulta: "Diaria",
+    valorDaMulta: "R$ 200,00",
+    prazoFatal: "24h"
+  },
+  {
+    id: 4,
+    data: "15/02/2024",
+    processo: "222220001444",
+    recebida: "e-mail",
+    tipoDeJust: "Federal",
+    tipoDeMulta: "Diaria",
+    valorDaMulta: "R$ 200,00",
+    prazoFatal: "24h"
+  },
+
+
+]

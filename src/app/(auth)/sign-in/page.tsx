@@ -1,100 +1,91 @@
 "use client"
-import Image from "next/image";
-import logo from "../../assets/logo.png";
 import { z } from "zod";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PrimaryInputSearchIcon } from "@/components/primary-input";
-import { User, LockKeyhole } from "lucide-react";
-import { useEffect, useState } from "react";
+import { User, LockKeyhole, Lock} from "lucide-react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Logo } from "@/components/icons/logo-login";
-import SplashScreen from "@/components/splash-screen";
-
-const validationScrema = z.object({
-  name: z
-    .string().min(5, "tem que ter 5 caracteres para continuar"),
-  senha: z
-    .string().min(8, "O Campo tem que conter no minimo 8 caracteres")
-        
-})
-.transform((field) => ({
-  name: field.name,
-  senha: field.senha
-}))
-
-
-type FormProps = z.infer<typeof validationScrema>
-type UserFormData = {
-  name: string,
-  senha: number
-}
-
+import Image from "next/image";
+import logo from "../../../assets/logo.svg"
+import { useMutatePost } from "@/hook/useTriagemPost";
+import { signIn } from "next-auth/react";
 
 
 export default function SingIn() {
-  const [name, setName] = useState<string>()
-  const [senha, setSenha] = useState<number>()
+  const [error, setError] = useState()
+  const [name, setName] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const { mutate, isSuccess } = useMutatePost()
   const router = useRouter()
-  
-  const handleNavigate = () => {
-    router.push('/users')
-  }
+  const API_URL = "http://localhost:8000/admin/auth/user/"
 
-  const submit = () => {
-    const data = {
+  async function handleSubmit(event: SyntheticEvent) {
+    event.preventDefault()
+    const result = await signIn('credentials', {
       name,
-      senha,
+      password,
+      redirect: false
+    })
+
+    if(result?.error) {
+      console.log(error)
+      return
     }
-    router.push('/inicio')
+
+    router.replace('/home')
   }
-
-
-  const { 
-    register, 
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormProps>({
-    criteriaMode: 'all',
-    mode: 'all',
-    resolver: zodResolver(validationScrema),
-  })
 
   return (
-
-    <div className="flex w-80 h-96 bg-gray-900 p-10 flex-col rounded-lg">
-      <div className="flex justify-center">
-        <Logo />
+    <div className="flex m-0">
+      <div className="flex flex-col justify-start h-screen bg-primary-white-100 lg:w-1/2 p-20">
+        <form className="w-96 m-auto mt-32 cover" onSubmit={handleSubmit}>
+          <div className="flex flex-col mb-4 w-full">
+              <div className="flex flex-col justify-start">
+                <Image 
+                  src={logo}
+                  alt=''
+                  sizes="180x38"
+                  height={38}
+                  width={180}
+                />
+                <h1 className="text-primary-gray-800 text-xl">Entre na sua Conta</h1>
+                <p className="text-primary-gray-500 text-xs">Sistemas de gestão de processos</p>
+              </div>
+              <div >
+                <PrimaryInputSearchIcon
+                  value={name}
+                  type="text"
+                  className="h-10 w-full bg-primary-gray-200 border rounded-xl pl-5 text-gray-600 focus:outline-none focus:border-primary-gray-300 text-sm"
+                  placeholder="Usuário"
+                  updateValue={setName}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col mb-6">
+              <div>
+                <PrimaryInputSearchIcon
+                  value={password}
+                  type="password"
+                  className="h-10 w-full bg-primary-gray-200 border rounded-xl pl-5 text-gray-600 focus:outline-none focus:border-primary-gray-300 text-sm"
+                  placeholder="Senha"
+                  updateValue={setPassword}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col mb-6 w-200">
+              <button
+                className="h-10 border-gray-300 border rounded-xl pl-10 bg-primary-blue-800 hover:bg-primary-blue-600 text-white font-bold py-2 px-4"
+                type="submit"
+              >
+                <span className="flex items-center justify-center">
+                  Entrar
+                </span>
+              </button>
+            </div>
+        </form>
       </div>
-      <div className="flex mb-2 bg-gray-150 items-center rounded-lg border mt-4">
-        <User className="pl-2" size={25}/>
-        <PrimaryInputSearchIcon
-          type="text"
-          className="w-full p-2 outline-none placeholder-gray-100 font-sans rounded-lg"
-          value={name}
-          updateValue={setName}
-          placeholder="Usuário"
-          {...register('name')}
-        />
-      </div>
-      {errors.name && <span className="mb-2 text-sm text-blue-50">{errors?.name?.message}</span>}
 
-      <div className="flex bg-gray-150 items-center rounded-lg border">
-        <LockKeyhole className="pl-2" size={25}/>
-        <PrimaryInputSearchIcon
-          type="password"
-          className="w-full p-2 outline-none placeholder-gray-100 font-sans rounded-lg"
-          value={senha}
-          updateValue={setSenha}
-          placeholder="Senha"
-          {...register('senha') }
-        />
-      </div>
-      <span className="text-sm text-blue-50 mb-2">{errors?.senha?.message}</span>
-
-      <button type="submit" className="h-10 rounded-lg bg-blue-50 text-gray-50 text-lg font-sans font-semibold" onClick={submit}>
-        Entrar
-      </button>
-    </div> 
+    </div>
   )
 }

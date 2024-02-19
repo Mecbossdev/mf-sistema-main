@@ -1,5 +1,6 @@
 'use client'
 import { Nav } from "@/components/nav";
+import HeaderDefault from "./header-default";
   
 
 type PropsLayout = {
@@ -8,14 +9,12 @@ type PropsLayout = {
 
 export default function LayoutComponent({children}: PropsLayout) {
   return (
-    <div className="bg-gray-900 min-h-screen flex">
+    <div className="bg-primary-gray-100 mx-auto min-h-screen w-full max-w-[1600px] flex dark:bg-primary-gray-900">
       <Nav />
-      <div className="bg-gray-50 rounded-lg flex-grow mt-6 mr-6 mb-6">
-        <div className="bg-gray-150 font-sans font-bold p-4 rounded-lg">
-          {children}          
-        </div>
+      <div className="bg-primary-gray-200 flex-grow dark:bg-primary-gray-600">
+        <HeaderDefault />
+        {children}
       </div>
     </div>
-
   )
 }

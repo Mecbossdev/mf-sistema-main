@@ -2,7 +2,7 @@
 
 export function DefaulPageLayout({children}: {children: React.ReactNode}) {
   return (
-    <div className="p-3 h-full">
+    <div className=" dark:bg-primary-gray-900 p-8 ">
       {children}
     </div>
   )
