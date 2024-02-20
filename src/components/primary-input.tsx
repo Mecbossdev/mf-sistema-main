@@ -28,8 +28,7 @@ export function PrimaryInputSearchIcon({
         value={value}
         placeholder={placeholder}
         onChange={event => updateValue(event.target.value)}
-      />
-      <p>hellow</p>      
+      />     
     </div>
   )
 

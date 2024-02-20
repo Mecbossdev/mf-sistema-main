@@ -19,6 +19,7 @@ import { Menu } from '@/interfaces/menu-data'
 import { Logo } from "@/components/icons/logo-login";
 import Image from 'next/image'
 import logo from '../assets/logo.svg'
+import { toast } from 'react-toastify'
 
 export function Nav() {
   const [filterNav, setfilterNav] = useState<string>('')
@@ -27,9 +28,9 @@ export function Nav() {
   const inactiveLink = 'flex gap-4 mb-6 border-gray-600 transition ease-in-out delay-200 hover:border-purple-250 duration-150 ...';
   const activeLink = inactiveLink+' text-primary-blue-700';
   const pathname = usePathname();
-
+  
   return (
-    <aside className=' p-6 text-primary-gray-500 border'>
+    <aside className=' p-6 text-primary-gray-500 border dark:border-none'>
       <div className="flex justify-center">
       <Image
         src={logo}
@@ -100,12 +101,12 @@ export function Nav() {
           </Link>            
         </div>
         
-        <div className='mt-16'>
+        <div className='fixed bottom-0'>
           <Link href={'/help'} className={pathname.includes('/help') ? activeLink : inactiveLink}>
             <HelpCircle size={22} className="ml-2"/>
             Ajuda
           </Link>
-          <Link href={'/configuracao'} className={pathname.includes('/configuracao') ? activeLink : inactiveLink}>
+          <Link href={'/settigns'} className={pathname.includes('/configuracao') ? activeLink : inactiveLink}>
             <Settings size={22} className="ml-2"/>
             Configuração
           </Link>

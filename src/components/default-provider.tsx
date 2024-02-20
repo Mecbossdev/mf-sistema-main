@@ -6,6 +6,7 @@ import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 import { ReactNode } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 interface DefaultProviderProps {
   children?: ReactNode
@@ -23,6 +24,7 @@ export function DefaultProvider({ children, session }: DefaultProviderProps) {
           </QueryClientProvider>
         </SessionProvider>
       </ThemeProvider>
+      <ToastContainer />
     </NextAuthSessionProvider>
 
 

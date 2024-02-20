@@ -10,6 +10,7 @@ import Image from "next/image";
 import logo from "../../../assets/logo.svg"
 import { useMutatePost } from "@/hook/useTriagemPost";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 
 export default function SingIn() {
@@ -78,9 +79,12 @@ export default function SingIn() {
                 className="h-10 border-gray-300 border rounded-xl pl-10 bg-primary-blue-800 hover:bg-primary-blue-600 text-white font-bold py-2 px-4"
                 type="submit"
               >
-                <span className="flex items-center justify-center">
-                  Entrar
-                </span>
+                <Link href={"/screening/get"}>
+                  <span className="flex items-center justify-center">
+                    Entrar
+                  </span>                
+                </Link>
+
               </button>
             </div>
         </form>
